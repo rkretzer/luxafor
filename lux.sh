@@ -12,7 +12,7 @@ while [ true ]; do
   if ps -ef | grep -v grep | grep zoom.us | grep cpthost > /dev/null; then
     busy=1
     if [[ ison -eq 0 ]]; then
-      slack status edit --text Meeting --emoji :slack_call:
+      slack status edit --text Meeting --emoji :slack_call: > /dev/null;
     fi
   fi
 
@@ -22,23 +22,23 @@ while [ true ]; do
     busy=1
   fi
 
-  status=$(/usr/local/bin/do-not-disturb status)
+  status=$(./dnd-big-sur)
   if [[ "$status" == "on" ]]; then
     busy=1
     if [[ ison -eq 0 ]]; then
-      slack snooze start 120
-      slack status edit --text Focus Time --emoji :dart:
+      slack snooze start 120 > /dev/null;
+      slack status edit --text Focus Time --emoji :microscope: > /dev/null;
     fi
   fi
 
   if [[ $busy -eq 1 ]]; then
-    luxcli -rgb=#FF0000
+    `luxcli -wave=5 -speed=50 -rgb=#FF0000`
     ison=1
   else
-    luxcli -rgb=#00FF00
+    `luxcli -rgb=#00FF00`
     if [[ $ison -eq 1 ]]; then
-      slack status clear
-      slack snooze end
+      slack status clear > /dev/null;
+      slack snooze end > /dev/null;
       ison=0
     fi
   fi

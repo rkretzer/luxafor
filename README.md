@@ -1,5 +1,11 @@
 # luxafor
 
+Forked from WilliamDurin/luxafor in order to make his very useful script working again with MacOs Big Sur.
+
+The old DND detection API has changed with Big Sur. A new approach is to run shell commands in order to get the DND status: https://gist.github.com/a7madgamal/9d3518a62c21477a92be461fbd652533
+Substituted the old DND checker from WilliamDurin's repository with a short (hacky) shell script to address this change. 
+
+
 This is just a repo I setup to help me manage my luxaflor flag/git status. It is completely unsupported, as it's mostly just here for my own use.
 
 Workflow:
@@ -12,7 +18,7 @@ Workflow:
 ## Setup
 
 ```bash
-npm install --global do-not-disturb-cli # get macos dnd status
+brew install go # Install go in order to be able to run the next step
 go get -v -u github.com/leosunmo/goluxafor/example/luxcli # control lux flag
 brew install rockymadden/rockymadden/slack-cli # talk to Slack
 brew install supervisor # Run script as service
@@ -23,17 +29,21 @@ sudo /usr/bin/pip3 install pyobjc-framework-Quartz
 slack init
 ```
 
-/usr/local/etc/supervisor.d/luxafor.ini contents
+Place this repository's content in /Users/[username]/luxafor and edit
+/usr/local/etc/supervisor.d/luxafor.ini contents (replace [username] with your macOS user name)
 
 ```
 [program:luxafor]
-directory=/Users/williamplatnick/workspace/luxafor
-command=/Users/williamplatnick/workspace/luxafor/lux.sh
+directory=/Users/[username]/luxafor
+command=/Users/[username]/luxafor/lux.sh
 startsecs=0
-user=williamplatnick
+user=[username]
 autorestart=true
-environment= PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/williamplatnick/.go/bin"
-stdout_logfile=/Users/williamplatnick/workspace/luxafor/lux.log
-stderr_logfile=/Users/williamplatnick/workspace/luxafor/lux_error.log
+environment= PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/[username]/.go/bin"
+stdout_logfile=/Users/[username]/workspace/luxafor/lux.log
+stderr_logfile=/Users/[username]/workspace/luxafor/lux_error.log
+```
+In order to apply config changes run
+```
 brew services restart supervisor
 ```
