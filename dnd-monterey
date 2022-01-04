@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if `defaults read com.apple.controlcenter "NSStatusItem Visible FocusModes" | grep 1 > /dev/null`; then
+echo 'on'
+fi
+
+if `defaults read com.apple.controlcenter "NSStatusItem Visible FocusModes" > /dev/null`; then
+echo 'off'
+fi
+
