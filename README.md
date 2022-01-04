@@ -1,6 +1,6 @@
 # luxafor
 
-Forked from WilliamDurin/luxafor in order to make his very useful script working again with MacOs Big Sur.
+Forked from WilliamDurin/luxafor in order to make his very useful script working again with MacOs Monterey.
 
 The old DND detection API has changed with Big Sur. A new approach is to run shell commands in order to get the DND status: https://gist.github.com/a7madgamal/9d3518a62c21477a92be461fbd652533
 Substituted the old DND checker from WilliamDurin's repository with a short (hacky) shell script to address this change. 
