@@ -22,7 +22,7 @@ while [ true ]; do
     busy=1
   fi
 
-  status=$(./dnd-big-sur)
+  status=$(./dnd-monterey)
   if [[ "$status" == "on" ]]; then
     busy=1
     if [[ ison -eq 0 ]]; then
