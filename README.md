@@ -47,3 +47,5 @@ In order to apply config changes run
 ```
 brew services restart supervisor
 ```
+
+Maybe you need to adjust your Environment PATH settings for all app names
