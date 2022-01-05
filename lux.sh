@@ -22,12 +22,12 @@ while [ true ]; do
     busy=1
   fi
 
-  status=$(./dnd-monterey)
-  if [[ "$status" == "on" ]]; then
+  status=$(osascript ./WhichFocus.scpt)
+  if [[ "$status" != "No focus" ]]; then
     busy=1
     if [[ ison -eq 0 ]]; then
       slack snooze start 120 > /dev/null;
-      slack status edit --text Focus Time --emoji :microscope: > /dev/null;
+      slack status edit --text Focus: "$status" --emoji :nicht_klingeln: > /dev/null;
     fi
   fi
 
