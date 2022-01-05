@@ -1,9 +1,13 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Seconds to sleep in between checks
 SLEEP=5
 
 ison=0
+declare -A emojis
+
+
+emojis=( [Arbeiten]="stopwatch" [DoNotDisturb]="no_bell" [Fahren]="car" [Meeting]="date" [Schlafen]="moon")
 
 while [ true ]; do
   busy=0
@@ -22,12 +26,14 @@ while [ true ]; do
     busy=1
   fi
 
-  status=$(osascript ./WhichFocus.scpt)
-  if [[ "$status" != "No focus" ]]; then
+  focusstatus=$(osascript ./WhichFocus.scpt)
+  statuscode=$(sed 's/ //g' <<< $focusstatus)
+#echo "$statuscode Emoji: ${emojis[${statuscode}]}"
+  if [[ "$focusstatus" != "No focus" ]]; then
     busy=1
     if [[ ison -eq 0 ]]; then
       slack snooze start 120 > /dev/null;
-      slack status edit --text Focus: "$status" --emoji :nicht_klingeln: > /dev/null;
+      slack status edit --text "Fokus: $focusstatus" --emoji :${emojis[${statuscode}]}: > /dev/null;
     fi
   fi
 
